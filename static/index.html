@@ -1,11 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Undertone — read the emotion in your words</title>
+<meta name="description" content="A small tool that reads the emotional undertone of a sentence." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340..600;1,9..144,340..600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-    <h1>App is Working bruh</h1>
+
+  <div id="glowA" class="glow"></div>
+  <div id="glowB" class="glow"></div>
+
+  <div class="grain"></div>
+
+  <main class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="pulse-dot" id="pulseDot"></span>
+        <span class="wordmark">Undertone</span>
+      </div>
+      <div class="status" id="statusLine">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">checking model&hellip;</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>What's underneath<br />the words?</h1>
+      <p class="lede">Type a sentence. A small model trained on six emotions will tell you what it's carrying — sadness, joy, love, anger, fear, or surprise.</p>
+    </section>
+
+    <section class="input-block">
+      <label for="textInput" class="sr-only">Sentence to analyze</label>
+      <textarea
+        id="textInput"
+        placeholder="I finally got the internship offer and I still can't quite believe it..."
+        maxlength="2000"
+        rows="4"
+      ></textarea>
+      <div class="input-footer">
+        <span class="char-count"><span id="charCount">0</span> / 2000</span>
+        <button id="analyzeBtn" class="analyze-btn" type="button">
+          <span class="btn-label">Read the undertone</span>
+          <span class="btn-loading">
+            Reading<span class="dots"><i></i><i></i><i></i></span>
+          </span>
+        </button>
+      </div>
+      <p class="error-msg" id="errorMsg" role="alert"></p>
+    </section>
+
+    <section class="result" id="resultBlock" aria-live="polite">
+
+      <div class="result-headline">
+        <span class="result-emoji" id="resultEmoji">🙂</span>
+        <div>
+          <div class="result-emotion" id="resultEmotion">—</div>
+          <div class="result-confidence"><span id="resultConfidence">0</span>% confidence</div>
+        </div>
+      </div>
+
+      <div class="spectrum" id="spectrum">
+        <!-- 6 spectrum segments injected by JS -->
+        <div class="spectrum-marker" id="spectrumMarker"></div>
+      </div>
+      <div class="spectrum-labels" id="spectrumLabels"></div>
+
+      <div class="breakdown" id="breakdown">
+        <!-- probability rows injected by JS -->
+      </div>
+
+    </section>
+
+    <section class="recent" id="recentBlock" hidden>
+      <span class="recent-label">recently read</span>
+      <div class="recent-chips" id="recentChips"></div>
+    </section>
+
+    <footer class="foot">
+      <span>BiGRU emotion classifier · six-class model</span>
+    </footer>
+
+  </main>
+
+<script src="/static/script.js"></script>
 </body>
 </html>
